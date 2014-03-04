@@ -1,0 +1,124 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.require_plugin('secured-cloud-vagrant')
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = "secured_cloud"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+	# API authentication
+  config.vm.provider :secured_cloud do |sc|
+		sc.auth.url = "http://secured_cloud_api_url"
+    sc.auth.applicationKey = "my_application_key"
+    sc.auth.sharedSecret = "my_shared_secret"			
+	end
+
+	
+  # VM 1
+  config.vm.define "vm01" do |vm01|
+	
+		# SecuredCloud dummy box
+    vm01.vm.box = "sc_dummy"
+		
+    
+		# Configuration for VM #1
+		vm01.vm.provider :secured_cloud do |sc|
+		
+			sc.vm.name = "myVM01"
+			sc.vm.description = "This is my first VM"
+			sc.vm.storageGB = 16
+			sc.vm.memoryMB = 1024
+			sc.vm.vcpus = 1
+			sc.vm.osTemplateUrl = "/ostemplate/178"
+			sc.vm.newOsPassword = "5tgb%TGB"
+			sc.vm.nodeResourceUrl = "/node/4"
+			sc.vm.orgResourceUrl = "/organization/10365"
+			
+			sc.vm.ipMappings = [
+				{
+					:newPublicIpCount => 1,
+					:publicIpsFromReserved => "172.27.21.48"
+				},
+				{
+					:privateIp => "10.2.0.19",
+					:publicIpsFromReserved => ["172.27.21.40", "172.27.21.34"]
+				}
+			]
+						
+		end
+	
+	end
+	
+	
+	# VM 2
+	config.vm.define "vm02" do |vm02|
+	
+		# SecuredCloud dummy box
+    vm02.vm.box = "sc_dummy"
+		
+		
+		# Configuration for VM #2
+		vm02.vm.provider :secured_cloud do |sc|
+		
+			sc.vm.name = "myVM02"
+			sc.vm.description = "This is my second VM"
+			sc.vm.storageGB = 16
+			sc.vm.memoryMB = 1024
+			sc.vm.vcpus = 1
+			sc.vm.imageResourceUrl = "/image/2796"
+			sc.vm.newOsPassword = "5tgb%TGB"
+			sc.vm.nodeResourceUrl = "/node/4"
+			sc.vm.orgResourceUrl = "/organization/10365"
+			
+			sc.vm.ipMappings = [
+				{
+					:newPublicIpCount => 2
+				},
+				{
+					:publicIpsFromReserved => ["172.27.21.40", "172.27.21.49"]
+				}
+			]
+			
+		end
+	
+	end
+	
+	
+	# VM 3
+	config.vm.define "vm03" do |vm03|
+	
+		# SecuredCloud dummy box
+    vm03.vm.box = "sc_dummy"		
+		
+		
+    # Configuration for VM #3
+		vm03.vm.provider :secured_cloud do |sc|
+		
+			sc.vm.name = "myVM03"
+			sc.vm.description = "This is third VM"
+			sc.vm.storageGB = 60
+			sc.vm.memoryMB = 1024
+			sc.vm.vcpus = 1
+			sc.vm.osTemplateUrl = "/ostemplate/45"
+			sc.vm.newOsPassword = "5tgb%TGB"
+			sc.vm.nodeResourceUrl = "/node/4"
+			sc.vm.orgResourceUrl = "/organization/10365"
+			
+			sc.vm.ipMappings = [
+				{
+          :newPublicIpCount => 2			
+				},
+				{				
+					:publicIpsFromReserved => ["172.27.21.40", "172.27.21.49"]
+				}
+			]
+			
+		end
+	
+	end
+
+end

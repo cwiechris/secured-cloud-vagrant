@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.require_plugin('secured-cloud-vagrant')
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = "secured_cloud"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  #SecuredCloud dummy box
+  config.vm.box = "sc_dummy"
+
+	config.vm.provider :secured_cloud do |sc|
+		
+    #API authentication
+    sc.auth.url = "http://secured_cloud_api_url"
+    sc.auth.applicationKey = "my_application_key"
+    sc.auth.sharedSecret = "my_shared_secret"
+	
+    # VM configuration
+		sc.vm.name = "myVM"
+		sc.vm.description = "This is my VM"
+		sc.vm.storageGB = 16
+		sc.vm.memoryMB = 1024
+		sc.vm.vcpus = 1
+		sc.vm.osTemplateUrl = "/ostemplate/178" #create VM from OS template
+		#sc.vm.imageResourceUrl = "/image/2796" #create VM from customer image
+		sc.vm.newOsPassword = "5tgb%TGB"
+		sc.vm.nodeResourceUrl = "/node/4"
+		sc.vm.orgResourceUrl = "/organization/10365"
+			
+		sc.vm.ipMappings = [
+      {
+        :newPublicIpCount => 1 #assign a new public IP
+      }
+		]
+
+	end
+
+end

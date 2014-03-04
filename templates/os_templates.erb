@@ -1,0 +1,12 @@
+<% if !os_templates.nil? && !os_templates.empty? -%>
+
+<% os_templates.each_pair do |key, value| -%>
+Resource URL: <%= key %>
+OS Name: <%= value.get_name %>
+OS Version: <%= value.get_version %>
+Minimum Storage: <%= value.get_minimum_storage_space %> GB
+Default Admin Username: <%= value.get_administrator_username %>
+Disk Expandable: <%= (value.get_disk_expandable) ? "Y" : "N" %>
+		
+<% end -%>
+<% end -%>

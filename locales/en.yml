@@ -1,0 +1,91 @@
+en:
+  secured_cloud_vagrant:
+    info:
+      not_created: "VM has not been created."
+      already_active: "VM is already active"
+      already_off: "VM is already off"
+      creating: "Creating a new VM ..."
+      destroying: "Destroying the VM ..."
+      powering_off: "Powering OFF the VM ..."
+      powering_on: "Powering ON the VM ..."
+      assigning_public_ips: "Assigning public IPs to VM ..."
+      reloading: "Rebooting the VM ..."
+      task_status: "%{percentage}% : %{task_desc}"
+      success:
+       create_vm: |- 
+         VM %{vm_name} was successfully created with the following resource URL:
+         %{resource_url}
+       delete_vm: "VM '%{vm_name}' was successfully deleted"
+       power_vm: "VM '%{vm_name}' was successfully powered %{power_status}"
+       reboot_vm: "VM '%{vm_name}' was successfully rebooted"
+       assign_public_ip: 
+         global_pool: "VM '%{vm_name}' has been successfully assigned a public IP from the global pool"
+         reserve_pool: "VM '%{vm_name}' has been successfully assigned public IP '%{public_ip}' from the reserve pool"
+    warnings:
+      no_public_ips: "Cannot connect to private VM '%{vm_name}'"
+      network_support: |-
+        Warning! The Secured Cloud provider doesn't support any of the Vagrant 
+        high-level network configurations (`config.vm.network`). They will be 
+        silently ignored.
+      provision_support: |-
+        Warning! The Secured Cloud provider doesn't support any of the Vagrant 
+        high-level provision configurations (`config.vm.provision`). They will be 
+        silently ignored.
+    errors:
+      unspecified_auth: |-
+        The authentication information must be correctly specified in the Vagrantfile
+        in order to be able to get the available %{resource_type}.
+      powering_vm: |-
+        There was an issue powering %{power_status} VM '%{vm_name}'.
+        Please check the following error message for details:
+
+        Error Message: %{error_message}
+      deleting_vm: |-
+        There was an issue with deleting VM '%{vm_name}'.
+        Please check the following error message for details:
+
+        Error Message: %{error_message}
+      creating_vm: |-
+        There was an issue with creating VM '%{vm_name}'.
+        Please check the following error message for details:
+
+        Error Message: %{error_message}
+      rebooting_vm: |-
+        There was an issue with reloading VM '%{vm_name}'.
+        Please check the following error message for details:
+
+        Error Message: %{error_message}
+      assigning_public_ip: |-
+        There was an issue with assigning a public IP to VM '%{vm_name}'.
+        Please check the following error message for details:
+
+        Error Message: %{error_message}
+      internal_server_error: "An internal server error occured. Please try again later."
+      request_timed_out: "The request made to the Secured Cloud API to %{request} timed out"
+      generic_error: "%{error_message}"
+    commands:
+      release_ips_confirmation: "Do you want to release the public IP(s) of the VM? [y/N]"
+      vm-config: |-
+         The following are the VM details required to connect to the Vagrant-managed VM:
+         HostName %{host_name}
+         User %{username}
+         Port %{port}
+         StrictHostKeyChecking no
+         PasswordAuthentication yes
+         Password ********
+    states:
+      not_created:
+       short: "not created"
+       long: "VM '%{vm_name}' is not created. Run 'vagrant up' to create it."
+      active:
+       short: "running"
+       long: |-
+        VM '%{vm_name}' is running. To stop it, you can run 'vagrant halt'.
+        To destroy it, you can run 'vagrant destroy'.
+      stopped:
+       short: "stopped"
+       long: "VM '%{vm_name}' is stopped. Run 'vagrant up' to start it."
+      unknown:
+       short: "unknown"
+       long: "Something is wrong, the state of VM '%{vm_name}' is unknown."
+      
