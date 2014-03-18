@@ -49,7 +49,7 @@ After installing the plugin (as indicated in the above section), the quickest wa
 specify all the required details in the `config.vm.provider` block in the Vagrantfile. So first add the dummy box as follows:
 
 ```
-$ vagrant box add sc_dummy https://github.com/leanneb/secured-cloud-vagrant/raw/master/dummy.box
+$ vagrant box add sc_dummy https://raw.github.com/cwiechris/secured-cloud-vagrant/master/dummy.box
 ...
 ```
 
